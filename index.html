@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,body {
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:transparent!important;
+  font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;
+}
+
+.stage {
+  position:relative;
+  width:100%;
+  max-width:1200px;
+  aspect-ratio:1200/760;
+  margin:auto;
+  background:transparent;
+}
+
+svg {
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+
+.bubble {
+  opacity:0;
+  transform-box:fill-box;
+  transform-origin:center;
+  transform:scale(.15);
+  transition:
+    opacity .65s ease,
+    transform 1s cubic-bezier(.18,.75,.22,1);
+}
+
+.bubble.show {
+  opacity:1;
+  transform:scale(1);
+}
+
+.bubble .outer {
+  fill:none;
+  stroke:#8ab4ce;
+  stroke-width:1.5;
+  stroke-dasharray:6 6;
+  opacity:.6;
+}
+
+.bubble .middle {
+  fill:none;
+  stroke:#d5e8f1;
+  stroke-width:2;
+  opacity:.85;
+}
+
+.bubble .inner {
+  stroke:#d8edf6;
+  stroke-width:2.5;
+}
+
+.bubble .innerline {
+  fill:none;
+  stroke:#d0e8f4;
+  stroke-width:1.2;
+  stroke-dasharray:5 6;
+  opacity:.8;
+}
+
+.orbit {
+  fill:none;
+  stroke:#9bb8ca;
+  stroke-width:1.2;
+  stroke-dasharray:5 8;
+  opacity:0;
+  transition:opacity 1.2s;
+}
+
+.orbit.show {
+  opacity:.55;
+}
+
+.callout {
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .8s,transform .8s;
+}
+
+.callout.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.guide {
+  fill:none;
+  stroke:#d5e9f3;
+  stroke-width:2.5;
+}
+
+.dot {
+  fill:#49a5da;
+  stroke:#f0f8fc;
+  stroke-width:2.5;
+}
+
+.name {
+  fill:#d5e9f3;
+  font-size:25px;
+  font-weight:600;
+}
+
+.number {
+  fill:#e4f2f8;
+  font-size:62px;
+  font-weight:600;
+}
+
+.percent {
+  fill:#a8d5ec;
+  font-size:33px;
+  font-weight:500;
+}
+
+.unit {
+  font-size:27px;
+  fill:#cde4ef;
+}
+
+.replay {
+  position:absolute;
+  right:3%;
+  bottom:5%;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:1px solid rgba(159,195,213,.65);
+  background:rgba(32,55,71,.42);
+  color:#c3e1ee;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  transition:background .25s,transform .25s;
+}
+
+.replay:hover {
+  background:rgba(57,95,117,.6);
+  transform:rotate(-25deg);
+}
+
+.replay svg {
+  width:25px;
+  height:25px;
+}
+
+.replay:focus-visible {
+  outline:2px solid #d8ecf6;
+  outline-offset:4px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stage">
+
+<svg viewBox="0 0 1200 760"
+     aria-label="宏福苑住宅单位损毁情况动态气泡图">
+
+<defs>
+
+  <radialGradient id="blueDeep">
+    <stop offset="0%" stop-color="#244f73"/>
+    <stop offset="65%" stop-color="#417da7"/>
+    <stop offset="100%" stop-color="#91c1df"/>
+  </radialGradient>
+
+  <radialGradient id="blueMid">
+    <stop offset="0%" stop-color="#3d759b"/>
+    <stop offset="75%" stop-color="#8dbbd7"/>
+    <stop offset="100%" stop-color="#b6d7e9"/>
+  </radialGradient>
+
+  <radialGradient id="blueLight">
+    <stop offset="0%" stop-color="#6fa5c5"/>
+    <stop offset="100%" stop-color="#c0deee"/>
+  </radialGradient>
+
+  <radialGradient id="orange">
+    <stop offset="0%" stop-color="#c77f58"/>
+    <stop offset="100%" stop-color="#f0bd9e"/>
+  </radialGradient>
+
+</defs>
+
+<!-- 气泡之间的环形连接 -->
+<ellipse
+  id="orbit"
+  class="orbit"
+  cx="605"
+  cy="380"
+  rx="330"
+  ry="270"/>
+
+<!-- 8个气泡 -->
+<g id="bubbles">
+
+  <!-- 1 宏昌阁 -->
+  <g class="bubble" id="bubble0">
+    <circle cx="605" cy="370" r="188"
+            fill="none"
+            stroke="#86b6d2"
+            stroke-width="1.5"
+            stroke-dasharray="6 7"
+            opacity=".6"/>
+
+    <circle cx="605" cy="370" r="170"
+            class="middle"/>
+
+    <circle cx="605" cy="370" r="149"
+            class="inner"
+            fill="url(#blueDeep)"/>
+
+    <circle cx="605" cy="370" r="162"
+            class="innerline"/>
+
+    <circle cx="772" cy="370" r="5"
+            fill="#e4f5fd"/>
+
+    <circle cx="470" cy="455" r="8"
+            fill="#398abf"/>
+
+    <text x="605" y="328"
+          text-anchor="middle"
+          class="name">
+      宏昌阁
+    </text>
+
+    <text x="605" y="398"
+          text-anchor="middle"
+          class="number">
+      158<tspan class="unit">个</tspan>
+    </text>
+
+    <text x="605" y="449"
+          text-anchor="middle"
+          class="percent">
+      占9.1%
+    </text>
+  </g>
+
+  <!-- 2 宏泰阁 -->
+  <g class="bubble" id="bubble1">
+    <circle cx="325" cy="235" r="140"
+            class="outer"/>
+
+    <circle cx="325" cy="235" r="122"
+            class="middle"/>
+
+    <circle cx="325" cy="235" r="103"
+            class="inner"
+            fill="url(#blueMid)"/>
+
+    <circle cx="325" cy="235" r="115"
+            class="innerline"/>
+
+    <circle cx="445" cy="235" r="5"
+            fill="#e8f5fb"/>
+  </g>
+
+  <!-- 3 -->
+  <g class="bubble" id="bubble2">
+    <circle cx="590" cy="95" r="59" class="outer"/>
+    <circle cx="590" cy="95" r="43"
+            class="inner"
+            fill="url(#blueLight)"/>
+  </g>
+
+  <!-- 4 -->
+  <g class="bubble" id="bubble3">
+    <circle cx="840" cy="215" r="72" class="outer"/>
+    <circle cx="840" cy="215" r="53"
+            class="inner"
+            fill="url(#blueLight)"/>
+  </g>
+
+  <!-- 5 宏建阁 -->
+  <g class="bubble" id="bubble4">
+    <circle cx="960" cy="395" r="38" class="outer"/>
+    <circle cx="960" cy="395" r="24"
+            class="inner"
+            fill="url(#blueLight)"/>
+  </g>
+
+  <!-- 6 -->
+  <g class="bubble" id="bubble5">
+    <circle cx="820" cy="585" r="80" class="outer"/>
+    <circle cx="820" cy="585" r="63"
+            class="inner"
+            fill="url(#orange)"/>
+  </g>
+
+  <!-- 7 -->
+  <g class="bubble" id="bubble6">
+    <circle cx="550" cy="650" r="55" class="outer"/>
+    <circle cx="550" cy="650" r="40"
+            class="inner"
+            fill="url(#blueLight)"/>
+  </g>
+
+  <!-- 8 -->
+  <g class="bubble" id="bubble7">
+    <circle cx="290" cy="500" r="70" class="outer"/>
+    <circle cx="290" cy="500" r="52"
+            class="inner"
+            fill="url(#blueLight)"/>
+  </g>
+
+</g>
+
+<!-- 宏泰阁数据标注 -->
+<g class="callout" id="callout1">
+
+  <path class="guide"
+        d="M245 154L198 109H130"/>
+
+  <circle class="dot"
+          cx="245" cy="154" r="9"/>
+
+  <text x="66" y="72" class="name">
+    宏泰阁
+  </text>
+
+  <text x="66" y="132" class="number">
+    145<tspan class="unit">个</tspan>
+  </text>
+
+  <text x="66" y="174" class="percent">
+    占8.3%
+  </text>
+
+</g>
+
+<!-- 宏建阁数据标注 -->
+<g class="callout" id="callout2">
+
+  <path class="guide"
+        d="M981 380L1035 322H1080"/>
+
+  <circle class="dot"
+          cx="981" cy="380" r="8"/>
+
+  <text x="1050" y="279" class="name">
+    宏建阁
+  </text>
+
+  <text x="1050" y="331" class="number">
+    1<tspan class="unit">个</tspan>
+  </text>
+
+  <text x="1050" y="371"
+        font-size="22"
+        fill="#a8d5ec">
+    占不到0.5%
+  </text>
+
+</g>
+
+</svg>
+
+<button class="replay"
+        id="replay"
+        aria-label="重新播放动画"
+        title="重新播放">
+
+  <svg viewBox="0 0 24 24"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="1.7"
+       stroke-linecap="round"
+       stroke-linejoin="round">
+    <path d="M3 11a9 9 0 1 1 2.5 6.3"/>
+    <path d="M3 4v7h7"/>
+  </svg>
+
+</button>
+
+</div>
+
+<script>
+const bubbles = [...document.querySelectorAll(".bubble")];
+const orbit = document.getElementById("orbit");
+const callout1 = document.getElementById("callout1");
+const callout2 = document.getElementById("callout2");
+const replay = document.getElementById("replay");
+
+let timers = [];
+
+function later(fn,delay) {
+  timers.push(setTimeout(fn,delay));
+}
+
+function reset() {
+  timers.forEach(clearTimeout);
+  timers = [];
+
+  bubbles.forEach(b => {
+    b.classList.remove("show");
+  });
+
+  orbit.classList.remove("show");
+  callout1.classList.remove("show");
+  callout2.classList.remove("show");
+}
+
+function play() {
+  reset();
+
+  bubbles.forEach((bubble,i) => {
+    later(() => {
+      bubble.classList.add("show");
+    }, 350 + i * 360);
+  });
+
+  later(() => {
+    orbit.classList.add("show");
+  }, 3200);
+
+  later(() => {
+    callout1.classList.add("show");
+  }, 3900);
+
+  later(() => {
+    callout2.classList.add("show");
+  }, 4700);
+}
+
+replay.addEventListener("click",play);
+
+window.addEventListener("load",play);
+</script>
+
+</body>
+</html>
